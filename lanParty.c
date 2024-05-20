@@ -53,10 +53,13 @@ int main(int argc, char *argv[]) {
       }
       //reducere echipe
       Team_deduction(&head);
-
       print_Team_name(head, output);
 
+      //eliberare memorie
+      free_Teams(head);
+          
      }
+
     //inchidere fisiere
     fclose(test);
     fclose(input);
