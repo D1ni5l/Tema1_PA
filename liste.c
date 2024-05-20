@@ -40,6 +40,7 @@ void create_list(Team **head, FILE *input) {
             fscanf(input, "%d", &points);
             addAtBeginning_for_Player((*head)->vect, j, firstName, secondName, points);
         }
+        (*head)->teams_number = nr_of_teams;
     }
 }
 
@@ -58,27 +59,15 @@ void print_teams_name_players_and_points(Team *head, FILE *output) {
     
     Team *head_copy = head;
     while (head_copy != NULL) {
-        fprintf(output, "%s\n", head_copy->team_name);
+        fprintf(output, "%s %0.2f\n", head_copy->team_name, head_copy->team_points);
         for (int i = 0; i < head_copy->number_of_players; i++) {
             fprintf(output, "%s %s %d\n", head_copy->vect[i].firstName, head_copy->vect[i].secondName, head_copy->vect[i].points);
         }
+        fprintf(output,"\n");
         head_copy = head_copy->next;
     }
 
     fclose(output);
-}
-
-void Team_points(Team *head) {
-    Team *head_copy = head;
-    while (head_copy != NULL) {
-        Data total_team_points = 0;  
-        for (int i = 0; i < head_copy->number_of_players; i++) {
-            total_team_points += head_copy->vect[i].points;
-        }
-        head_copy->team_points = (float)total_team_points;
-        printf("Team: %s, Total Points: %f\n", head_copy->team_name, head_copy->team_points);
-        head_copy = head_copy->next;
-    }
 }
 
 void free_team_members(Team *team) {
@@ -99,3 +88,51 @@ void free_Teams(Team *head) {
         free_team_members(head_copy);
     }
 } 
+
+void free_Team(Team *head) {
+    Team *head_copy;
+        head_copy = head;
+        free_team_members(head_copy);
+} 
+
+float Team_points( Team *head){
+    float total_points = 0;
+
+    for( int i = 0; i < head->number_of_players; i++)
+      total_points = total_points + head->vect[i].points;
+    return total_points / head->number_of_players;
+}
+
+void Team_deduction( Team ** head){
+    int n_max = 1;
+    while( n_max * 2 < (*head)->teams_number )
+      n_max *= 2;
+     
+    while( (*head)->teams_number > n_max ){
+        Team *head_copy = *head;
+        float min = head_copy->team_points;
+        while( head_copy !=  NULL)
+        {
+            if( head_copy->team_points < min )
+             min = head_copy->team_points;
+             head_copy = head_copy->next;
+        }
+        head_copy = *head;
+        if( (*head)->team_points == min ){
+            *head = (*head)->next;
+            free_Team(head_copy);
+        }
+        else {
+           while( head_copy->next->team_points != min && head_copy->next != NULL)
+               head_copy = head_copy->next;
+
+               Team *copy = head_copy->next;
+               if(head_copy->next != NULL)
+               head_copy->next = head_copy->next->next;
+               else head_copy->next = NULL;
+               
+               free_Team(copy);
+        }        
+        n_max++;
+       }
+}

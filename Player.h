@@ -12,7 +12,7 @@ struct Player {
 
 struct Team {
     char *team_name;
-    Data number_of_players;
+    Data number_of_players, teams_number;
     float team_points;
     struct Player *vect;  
     struct Team *next;
@@ -28,3 +28,6 @@ void free_team_members(Team *);
 void free_Teams(Team *);
 void print_Team_name(Team *, FILE *);
 void print_teams_name_players_and_points(Team *, FILE *);
+float Team_points(Team *);
+void Team_deduction( Team **);
+void free_Team(Team *);
