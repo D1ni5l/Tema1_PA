@@ -1,5 +1,6 @@
 #include "Player.h"
 #define max_name_length 70
+
 void addAtBeginning_for_team(Team **head, char *team_name, Data number_of_players) {
     Team* newNode = (Team*)malloc(sizeof(Team));
     newNode->team_name = (char *)malloc((strlen(team_name) + 1) * sizeof(char));
@@ -53,13 +54,8 @@ void print_Team_name(Team *head, FILE *output) {
     }
 }
 
-void print_teams_name_players_and_points(Team *head) {
-    FILE *output = fopen("r.out", "wt");
-    if (output == NULL) {
-        perror("Fisierul de iesire nu poate fi deschis");
-        exit(1);
-    }
-
+void print_teams_name_players_and_points(Team *head, FILE *output) {
+    
     Team *head_copy = head;
     while (head_copy != NULL) {
         fprintf(output, "%s\n", head_copy->team_name);

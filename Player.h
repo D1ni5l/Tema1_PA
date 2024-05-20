@@ -27,4 +27,4 @@ void create_list(Team **, FILE *);
 void free_team_members(Team *);
 void free_Teams(Team *);
 void print_Team_name(Team *, FILE *);
-void print_teams_name_players_and_points(Team *);
+void print_teams_name_players_and_points(Team *, FILE *);
