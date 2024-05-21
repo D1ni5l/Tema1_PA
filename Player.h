@@ -10,6 +10,9 @@ struct Player {
     Data points;
 };
 
+typedef struct Team Team;
+typedef struct Player Player;
+
 struct Team {
     char *team_name;
     Data number_of_players, teams_number;
@@ -18,8 +21,23 @@ struct Team {
     struct Team *next;
 };
 
-typedef struct Team Team;
-typedef struct Player Player;
+struct node{
+     Team *team_1;
+     Team *team_2;
+     struct node *next;
+};
+typedef struct node Node;
+struct queue{
+    Node *front;
+    Node *rear;
+};
+typedef struct queue Queue;
+
+struct stack{
+  Team *team;
+  struct stack *next;
+};
+typedef struct stack Stack;
 
 void addAtBeginning_for_team(Team **, char *, Data);
 void addAtBeginning_for_Player(Player *, Data , char *, char *, Data );
@@ -31,3 +49,22 @@ void print_teams_name_players_and_points(Team *, FILE *);
 float Team_points(Team *);
 void Team_deduction( Team **);
 void free_Team(Team *);
+float increase_team_points( Team *);
+
+Queue* createQueue();
+void enQueue(Queue *, Team *, Team * );
+Node* deQueue(Queue *);
+int isEmpty(Queue*);
+void deleteQueue(Queue *);
+void print_Queue( Queue *,FILE*);
+void print_Winners( Queue *, FILE *);
+
+int isEmpty_Stack(Stack*);
+void deleteStack(Stack **);
+Team* pop(Stack **);
+void push(Stack **, Team *); 
+Team* top_Stack(Stack *);
+void printStack(Stack *, FILE *);  
+void Stack_repartition( Queue *, Stack **, Stack **);
+void print_win_team( Team *, FILE* );
+void create_round_from_stack(Stack *, Queue* , FILE *);

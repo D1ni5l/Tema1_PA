@@ -30,6 +30,9 @@ void create_list(Team **head, FILE *input) {
         fscanf(input, "%d", &nr_of_team_players);
         fscanf(input, "%c", &trash);
         fgets(team_name, max_name_length, input);
+        strcpy(team_name + strlen(team_name) - 2, team_name + strlen(team_name));
+        //daca echipa are un spatiu in plus;
+        if( team_name[strlen(team_name) - 1] == ' ')
         strcpy(team_name + strlen(team_name) - 1, team_name + strlen(team_name));
 
         addAtBeginning_for_team(head, team_name, nr_of_team_players); 
@@ -105,7 +108,7 @@ float Team_points( Team *head){
 
 void Team_deduction( Team ** head){
     int n_max = 1;
-    while( n_max * 2 < (*head)->teams_number )
+    while( n_max * 2 <= (*head)->teams_number )
       n_max *= 2;
      
     while( (*head)->teams_number > n_max ){
@@ -135,4 +138,11 @@ void Team_deduction( Team ** head){
         }        
         n_max++;
        }
+}
+
+float increase_team_points( Team *head){
+    for(int i = 0; i < head->number_of_players; i++)
+        head->vect[i].points++;
+    head->team_points = Team_points(head); 
+    return head->team_points;
 }
