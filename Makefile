@@ -1,4 +1,4 @@
 all:
-	gcc lanParty.c liste.c stive.c cozi.c -o lanParty
+	gcc lanParty.c liste.c stive.c cozi.c BST.c -o lanParty
 clean:
 	rm -f lanParty

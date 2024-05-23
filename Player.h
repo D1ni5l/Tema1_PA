@@ -39,13 +39,20 @@ struct stack{
 };
 typedef struct stack Stack;
 
+struct BST_Node {
+    Team *team;
+    struct BST_Node *left;
+    struct BST_Node *right;
+};
+
+typedef struct BST_Node BSTNode;
+
 void addAtBeginning_for_team(Team **, char *, Data);
 void addAtBeginning_for_Player(Player *, Data , char *, char *, Data );
 void create_list(Team **, FILE *);
 void free_team_members(Team *);
 void free_Teams(Team *);
 void print_Team_name(Team *, FILE *);
-void print_teams_name_players_and_points(Team *, FILE *);
 float Team_points(Team *);
 void Team_deduction( Team **);
 void free_Team(Team *);
@@ -69,3 +76,8 @@ void print_win_team( Team *, FILE* );
 void create_round_from_stack(Stack *, Queue* , FILE *);
 void printStack_and_create_Queue(Stack *, FILE*, Team **, Queue *);
 void team_copy(Team **, Team *);
+
+BSTNode *insert_BST( BSTNode *, Team *); 
+BSTNode *newNode_BST( Team *);
+void print_BST_in_descending_order(BSTNode *, FILE *);
+void free_BST(BSTNode *);

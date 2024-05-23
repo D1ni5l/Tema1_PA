@@ -56,21 +56,6 @@ void print_Team_name(Team *head, FILE *output) {
     }
 }
 
-void print_teams_name_players_and_points(Team *head, FILE *output) {
-    
-    Team *head_copy = head;
-    while (head_copy != NULL) {
-        fprintf(output, "%s %0.2f\n", head_copy->team_name, head_copy->team_points);
-        for (int i = 0; i < head_copy->number_of_players; i++) {
-            fprintf(output, "%s %s %d\n", head_copy->vect[i].firstName, head_copy->vect[i].secondName, head_copy->vect[i].points);
-        }
-        fprintf(output,"\n");
-        head_copy = head_copy->next;
-    }
-
-    fclose(output);
-}
-
 void free_team_members(Team *team) {
     for (int i = 0; i < team->number_of_players; i++) {
         free(team->vect[i].firstName);

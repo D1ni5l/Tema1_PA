@@ -51,7 +51,7 @@ void create_round_from_stack(Stack *stack, Queue* q, FILE *output){
 
 void print_win_team( Team *team, FILE* output){
         fprintf(output,"%s", team->team_name);
-        int line = LINE_LENGHT;
+ 
         for( int i = strlen(team->team_name); i < LINE_LENGHT; i++)
         fprintf(output,"%c", ' ');
         fprintf(output,"-  %.2f\n", team->team_points);
