@@ -2,7 +2,6 @@
 #define INT_MAX 999999999
 #define LINE_LENGHT 68
 
-
 Queue* createQueue(){
 	Queue *q;
 	q=(Queue *)malloc(sizeof(Queue));
@@ -13,6 +12,7 @@ Queue* createQueue(){
 
 void enQueue(Queue *q, Team *team1, Team *team2){
     Node *newNode = (Node *)malloc(sizeof(Node));
+    
     newNode->team_1 = team1;
     newNode->team_2 = team2;
     newNode->next = NULL;
@@ -71,4 +71,28 @@ void print_Queue(Queue *q, FILE *output){
         current = current->next;
     }
 }
+
+void copy_team(Team **team_copy, Team *team) {
+    if (team == NULL || team_copy == NULL) return;
+
+    *team_copy = (Team *)malloc(sizeof(Team)); // Alocăm memorie pentru team_copy
+    (*team_copy)->team_name = (char *)malloc((strlen(team->team_name) + 1) * sizeof(char));
+    strcpy((*team_copy)->team_name, team->team_name);
+
+    (*team_copy)->number_of_players = team->number_of_players;
+    (*team_copy)->teams_number = 8;
+
+    (*team_copy)->team_points = team->team_points;
+
+    (*team_copy)->vect = (Player *)malloc(team->number_of_players * sizeof(Player));
+    for (int i = 0; i < team->number_of_players; i++) {
+        (*team_copy)->vect[i].firstName = (char *)malloc((strlen(team->vect[i].firstName) + 1) * sizeof(char));
+        strcpy((*team_copy)->vect[i].firstName, team->vect[i].firstName);
+        (*team_copy)->vect[i].secondName = (char *)malloc((strlen(team->vect[i].secondName) + 1) * sizeof(char));
+        strcpy((*team_copy)->vect[i].secondName, team->vect[i].secondName);
+        (*team_copy)->vect[i].points = team->vect[i].points;
+    }
+    (*team_copy)->next = NULL;
+}
+
 

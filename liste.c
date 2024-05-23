@@ -1,5 +1,6 @@
 #include "Player.h"
 #define max_name_length 70
+#define LAST_EIGHT 8
 
 void addAtBeginning_for_team(Team **head, char *team_name, Data number_of_players) {
     Team* newNode = (Team*)malloc(sizeof(Team));
@@ -20,7 +21,6 @@ void addAtBeginning_for_Player(Player *vect, Data j, char *firstName, char *seco
 }
 
 void create_list(Team **head, FILE *input) {
-    
     char trash;
     char team_name[max_name_length], firstName[max_name_length], secondName[max_name_length];
     int nr_of_teams, nr_of_team_players, points;
@@ -46,8 +46,6 @@ void create_list(Team **head, FILE *input) {
         (*head)->teams_number = nr_of_teams;
     }
 }
-
-
 
 void print_Team_name(Team *head, FILE *output) {
 
@@ -110,7 +108,6 @@ void Team_deduction( Team ** head){
     int n_max = 1;
     while( n_max * 2 <= (*head)->teams_number )
       n_max *= 2;
-     
     while( (*head)->teams_number > n_max ){
         Team *head_copy = *head;
         float min = head_copy->team_points;
