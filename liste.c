@@ -8,8 +8,8 @@ void addAtBeginning_for_team(Team **head, char *team_name, Data number_of_player
     strcpy(newNode->team_name, team_name); 
     newNode->number_of_players = number_of_players;
     newNode->vect = (Player*)malloc(number_of_players * sizeof(Player));
-    newNode->next = *head;
-    *head = newNode;
+    newNode->next = (*head);
+    (*head) = newNode;
 }
 
 void addAtBeginning_for_Player(Player *vect, Data j, char *firstName, char *secondName, Data points) {
@@ -66,19 +66,20 @@ void free_team_members(Team *team) {
     free(team);
 }
 
-void free_Teams(Team *head) {
+void free_Teams(Team **head) {
     Team *head_copy;
-    while (head != NULL) {
-        head_copy = head;
-        head = head->next;
+    while ( (*head) != NULL) {
+        head_copy = (*head);
+        (*head) = (*head)->next;
         free_team_members(head_copy);
     }
     return;
 } 
 
-void free_Team(Team *head) {
+void free_Team(Team **head) {
     Team *head_copy;
-        head_copy = head;
+        head_copy = (*head);
+        (*head) = NULL;
         free_team_members(head_copy);
 } 
 
@@ -95,7 +96,7 @@ void Team_deduction( Team ** head){
     while( n_max * 2 <= (*head)->teams_number )
       n_max *= 2;
     while( (*head)->teams_number > n_max ){
-        Team *head_copy = *head;
+        Team *head_copy = (*head);
         float min = head_copy->team_points;
         while( head_copy !=  NULL)
         {
@@ -103,10 +104,10 @@ void Team_deduction( Team ** head){
              min = head_copy->team_points;
              head_copy = head_copy->next;
         }
-        head_copy = *head;
+        head_copy = (*head);
         if( (*head)->team_points == min ){
-            *head = (*head)->next;
-            free_Team(head_copy);
+            (*head) = (*head)->next;
+            free_Team(&head_copy);
         }
         else {
            while( head_copy->next->team_points != min && head_copy->next != NULL)
@@ -117,7 +118,7 @@ void Team_deduction( Team ** head){
                head_copy->next = head_copy->next->next;
                else head_copy->next = NULL;
                
-               free_Team(copy);
+               free_Team(&copy);
         }        
         n_max++;
        }

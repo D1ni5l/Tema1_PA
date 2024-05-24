@@ -30,17 +30,14 @@ void push(Stack **top, Team *team) {
     (*top)= newNode;
 }
 
-Team* top_Stack(Stack *top) {
-    if (isEmpty_Stack(top)) return NULL;
-    return top->team;
-}
-
 // functia pregateste coada de meciuri pentru urmatoare runda
 void create_round_from_stack(Stack *stack, Queue* q, FILE *output){
      while (!isEmpty_Stack(stack)) {
+
         Team *team_1= pop(&stack);
         if( team_1 != NULL)
         print_win_team( team_1, output);
+
         Team *team_2= pop(&stack);
         if( team_2 != NULL)
         print_win_team( team_2, output);
@@ -50,6 +47,7 @@ void create_round_from_stack(Stack *stack, Queue* q, FILE *output){
 }
 
 void print_win_team( Team *team, FILE* output){
+ 
         fprintf(output,"%s", team->team_name);
  
         for( int i = strlen(team->team_name); i < LINE_LENGHT; i++)
@@ -60,12 +58,15 @@ void print_win_team( Team *team, FILE* output){
 // functia repartizeaza ecipele in stivele de pierzatori si castigatori in functie de criteriile oferite
 void Stack_repartition( Queue *q, Stack **win, Stack **lose){
     Queue *q_copy = q;
+    
     while(q_copy->front != NULL){    
+    
     if( q_copy->front->team_1->team_points <= q_copy->front->team_2->team_points){
         q_copy->front->team_2->team_points = increase_team_points(q_copy->front->team_2);
         push(win, q_copy->front->team_2);
         push(lose, q_copy->front->team_1);
     }
+    
     else {
         q_copy->front->team_1->team_points = increase_team_points(q_copy->front->team_1);
         push(win, q_copy->front->team_1);
@@ -79,9 +80,11 @@ void Stack_repartition( Queue *q, Stack **win, Stack **lose){
 //funtia copiaza echipa cu scopul de a putea elibera memoria din stiva fara a afecta echipele retinute si totodata pentru a patra punctajul acumulat pana in momentul respectiv
 void team_copy(Team **copy, Team *head) {
     if (head == NULL || copy == NULL) return;
+
     *copy = (Team *)malloc(sizeof(Team));
     if (*copy == NULL) exit(1);
     (*copy)->team_name = (char *)malloc((strlen(head->team_name) + 1) * sizeof(char));
+
     if ((*copy)->team_name == NULL) exit(1);
     strcpy((*copy)->team_name, head->team_name);
 
@@ -120,13 +123,13 @@ void printStack_and_create_Queue(Stack *stack, FILE* output, Team **head, Queue 
         team_copy(&newNode2, team_2);
 
         if (newNode1 != NULL) {
-            newNode1->next = *head;
-            *head = newNode1;
+            newNode1->next = (*head);
+            (*head) = newNode1;
         }
 
         if (newNode2 != NULL) {
-            newNode2->next = *head;
-            *head = newNode2;
+            newNode2->next = (*head);
+            (*head) = newNode2;
         }
     }
 }

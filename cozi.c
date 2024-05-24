@@ -75,7 +75,7 @@ void print_Queue(Queue *q, FILE *output){
 void copy_team(Team **team_copy, Team *team) {
     if (team == NULL || team_copy == NULL) return;
 
-    *team_copy = (Team *)malloc(sizeof(Team)); // Alocăm memorie pentru team_copy
+    *team_copy = (Team *)malloc(sizeof(Team)); 
     (*team_copy)->team_name = (char *)malloc((strlen(team->team_name) + 1) * sizeof(char));
     strcpy((*team_copy)->team_name, team->team_name);
 
