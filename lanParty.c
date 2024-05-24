@@ -298,13 +298,10 @@ if( date ==  5 ){
      copy_last_eight = last_eight;
      
     //print_Team_name(copy_last_eight, out_out);
-     last_eight = NULL;
+    free_Team(last_eight);
+    last_eight = NULL;
      list_from_BST(root, &last_eight);
-     copy_last_eight = last_eight;
-      while( copy_last_eight != NULL ){
-       printf("%s \n", copy_last_eight->team_name);
-       copy_last_eight = copy_last_eight->next;
-     }
+
       //eliberare memorie
      free_BST(root);
      free_Teams(head);
