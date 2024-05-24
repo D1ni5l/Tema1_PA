@@ -81,3 +81,5 @@ BSTNode *insert_BST( BSTNode *, Team *);
 BSTNode *newNode_BST( Team *);
 void print_BST_in_descending_order(BSTNode *, FILE *);
 void free_BST(BSTNode *);
+void addAtBeginning_for_list(Team **, Team *);
+void list_from_BST(BSTNode *, Team **);

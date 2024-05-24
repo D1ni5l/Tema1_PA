@@ -73,6 +73,7 @@ void free_Teams(Team *head) {
         head = head->next;
         free_team_members(head_copy);
     }
+    return;
 } 
 
 void free_Team(Team *head) {

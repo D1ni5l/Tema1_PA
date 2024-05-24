@@ -1,5 +1,4 @@
 #include "Player.h"
-#define LINE_LENGHT 34
 
 BSTNode *newNode_BST( Team *data){
 BSTNode *node = ( BSTNode*) malloc ( sizeof (BSTNode));
@@ -29,6 +28,25 @@ void print_BST_in_descending_order(BSTNode *root, FILE *output) {
     print_BST_in_descending_order(root->left, output);
 }
 
+void addAtBeginning_for_list(Team **head, Team *root) {
+    Team* newNode = (Team*)malloc(sizeof(Team));
+    newNode->team_name = (char *)malloc((strlen(root->team_name) + 1) * sizeof(char));
+    strcpy(newNode->team_name, root->team_name); 
+    newNode->number_of_players = root->number_of_players;
+    newNode->vect = (Player*)malloc(root->number_of_players * sizeof(Player));
+    newNode->teams_number = root->teams_number;
+    newNode->team_points = root->team_points;
+    newNode->next = *head;
+    *head = newNode;
+}
+
+void list_from_BST(BSTNode *root, Team **list) {
+    if (root == NULL) return;
+    list_from_BST(root->left, list);
+    addAtBeginning_for_list(list, root->team);
+    list_from_BST(root->right, list);
+}
+
 void free_BST(BSTNode *root) {
     if (root == NULL) return;
 
@@ -36,3 +54,4 @@ void free_BST(BSTNode *root) {
     free_BST(root->right);
     free(root);
 }
+
