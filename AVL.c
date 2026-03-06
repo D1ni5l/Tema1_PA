@@ -60,7 +60,7 @@ AVLNode *insert_AVLNode(AVLNode *node, Team *team) {
         newNode->team = team;
         newNode->left = NULL;
         newNode->right = NULL;
-        newNode->height = 0; // Inițializează înălțimea la 1
+        newNode->height = 0; // Inițializează înălțimea
         return newNode;
     }
 
@@ -68,7 +68,7 @@ AVLNode *insert_AVLNode(AVLNode *node, Team *team) {
         node->left = insert_AVLNode(node->left, team);
     else if (team->team_points > node->team->team_points)
         node->right = insert_AVLNode(node->right, team);
-    else { // Dacă punctele sunt egale, sortăm după nume în ordine descrescătoare
+    else { 
         if (strcmp(team->team_name, node->team->team_name) < 0)
             node->left = insert_AVLNode(node->left, team);
         else
